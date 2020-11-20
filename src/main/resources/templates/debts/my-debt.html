@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+	<head>
+	
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	
+    	<link 	rel="stylesheet" 
+    			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+    			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
+    			crossorigin="anonymous">
+	
+		<title>My debts</title>
+	</head>
+
+	<body>
+	
+		<div class="container">
+		
+			<h3>My Debts Directory</h3>
+			<hr>
+			
+			<table class="table table-boardered table-striped">
+			
+				<thead class="thead-dark">
+					<tr>
+						<th>Debt ID</th>
+						<th>Creditor First Name</th>
+						<th>Creditor Last Name</th>
+						<th>Creditor Username</th>
+						<th>Info</th>
+						<th>Value</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+			
+					<!-- "employees" - is from Model -->
+					<tr th:each="tempDebt : ${myDebts}">
+					
+						<td th:text="${tempDebt.idOfDebt}"/>
+						<td th:text="${tempDebt.creditorFirstName}"/>
+						<td th:text="${tempDebt.creditorLastName}"/>
+						<td th:text="${tempDebt.creditorUsername}"/>
+						<td th:text="${tempDebt.info}"/>
+						<td th:text="${tempDebt.value}"/>
+						
+						<!-- UPDATE -->
+						<td>
+							<a 	th:href="@{/debt/showDebtFormForUpdate(debtId=${tempDebt.idOfDebt})}"
+								class="btn btn-info btn-sm">
+								Update
+							</a>
+							<a 	th:href="@{/debt/delete(debtId=${tempDebt.idOfDebt})}"
+								class="btn btn-danger btn-sm"
+								onclick="if (!(confirm('Are you sure you want to delete this debt?'))) return false">
+								Delete
+							</a>
+						</td>
+						
+					</tr>
+				</tbody>
+			
+			</table>
+			
+			
+			
+			<h3>Debts TO ME Directory</h3>
+			<hr>
+			
+			<table class="table table-boardered table-striped">
+			
+				<thead class="thead-dark">
+					<tr>
+						<th>Debt ID</th>
+						<th>Debtor First Name</th>
+						<th>Debtor Last Name</th>
+						<th>Debtor Username</th>
+						<th>Info</th>
+						<th>Value</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+			
+					<!-- "employees" - is from Model -->
+					<tr th:each="tempDebt : ${myDebtors}">
+					
+						<td th:text="${tempDebt.idOfDebt}"/>
+						<td th:text="${tempDebt.debtorFirstName}"/>
+						<td th:text="${tempDebt.debtorLastName}"/>
+						<td th:text="${tempDebt.debtorUsername}"/>
+						<td th:text="${tempDebt.info}"/>
+						<td th:text="${tempDebt.value}"/>
+						
+						<td>
+							<a 	th:href="@{/debt/showDebtFormForUpdate(debtId=${tempDebt.idOfDebt})}"
+								class="btn btn-info btn-sm">
+								Update
+							</a>
+							
+							<a 	th:href="@{/debt/delete(debtId=${tempDebt.idOfDebt})}"
+								class="btn btn-danger btn-sm"
+								onclick="if (!(confirm('Are you sure you want to delete this debt?'))) return false">
+								Delete
+							</a>
+						</td>
+						
+					</tr>
+				</tbody>
+			
+			</table>
+		
+		</div>
+		
+		<!-- 	
+		<p>My debts</p>
+	
+		<hr>
+			
+		<div>
+		<br><br>
+		MY DEBTORS:
+		<span th:utext="${myDebtors}"></span> 	
+		<br><br>
+		MY DEBTS TO PEOPLE:
+		<span th:utext="${myDebts}"></span>
+			
+		</div>
+		-->
+	
+		<a th:href="@{/}">Back to profile</a>
+				
+	</body>
+
+</html>
